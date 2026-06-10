@@ -1,0 +1,42 @@
+<!-- Cabecera de la aplicación -->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Detector de Red</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <!-- BANNER ONLINE (verde) - Se muestra SOLO si hay conexión -->
+  <div *ngIf="(networkService.onlineStatus$ | async) === true" 
+       style="background-color: #4CAF50; padding: 20px; border-radius: 10px; color: white; text-align: center;">
+    <ion-icon name="wifi-outline" style="font-size: 48px;"></ion-icon>
+    <h2>✅ CONECTADO A INTERNET</h2>
+    <p>La aplicación funciona con normalidad</p>
+  </div>
+
+  <!-- BANNER OFFLINE (rojo) - Se muestra SOLO si NO hay conexión -->
+  <div *ngIf="(networkService.onlineStatus$ | async) === false" 
+       style="background-color: #f44336; padding: 20px; border-radius: 10px; color: white; text-align: center;">
+    <ion-icon name="wifi-outline" style="font-size: 48px;"></ion-icon>
+    <h2>⚠️ SIN CONEXIÓN</h2>
+    <p>📱 Modo Offline Activado - Los datos se guardarán localmente</p>
+  </div>
+
+  <!-- BADGE de estado (chip) -->
+  <div style="margin-top: 20px; text-align: center;">
+    <ion-chip [color]="(networkService.onlineStatus$ | async) ? 'success' : 'danger'">
+      <ion-icon [name]="(networkService.onlineStatus$ | async) ? 'checkmark-circle' : 'alert-circle'"></ion-icon>
+      <ion-label>Estado: {{ (networkService.onlineStatus$ | async) ? 'Online' : 'Offline' }}</ion-label>
+    </ion-chip>
+  </div>
+
+  <!-- BOTÓN para probar guardado offline -->
+  <div style="margin-top: 30px;">
+    <ion-button expand="block" (click)="guardarEvento()" color="primary">
+      <ion-icon slot="start" name="save-outline"></ion-icon>
+      Guardar Evento de Red
+    </ion-button>
+  </div>
+
+</ion-content>

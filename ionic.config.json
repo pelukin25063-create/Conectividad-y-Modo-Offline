@@ -1,0 +1,7 @@
+{
+  "name": "AP4Conectividad1",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
